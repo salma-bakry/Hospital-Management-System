@@ -1,6 +1,6 @@
 """Staff model for the hospital management system."""
 
-from src.person import Person
+from person import Person
 
 
 class Staff(Person):

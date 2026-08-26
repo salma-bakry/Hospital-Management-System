@@ -2,10 +2,11 @@ import json
 import os # helps us check if the file exists
 
 
-# from hospital import Hospital
-# from department import Department
-# from patient import Patient
-# from staff import Staff
+from hospital import Hospital
+from department import Department
+from patient import Patient
+from staff import Staff
+
 
 
 # __file__ : the location of this current Python file
@@ -33,9 +34,18 @@ def save_hospitals(hospitals):
 def patient_to_dict(patient):
 
     return {
+        "patient_id": patient.patient_id,
         "name": patient.name,
         "age": patient.age,
-        "medical_record": patient.medical_record
+        "department": patient.department,
+
+        "medical_record": {
+            "diagnosis": patient.medical_record.diagnosis,
+            "medications": patient.medical_record.medications,
+            "test_results": patient.medical_record.test_results,
+            "appointments": patient.medical_record.appointments,
+            "medical_history": patient.medical_record.medical_history
+        }
     }
 
 
@@ -44,7 +54,8 @@ def staff_to_dict(staff_member):
     return {
         "name": staff_member.name,
         "age": staff_member.age,
-        "position": staff_member.position
+        "position": staff_member.position,
+        "department": staff_member.department
     }
 
 
@@ -66,6 +77,7 @@ def department_to_dict(department):
 
     return {
         "name": department.name,
+        "capacity": department.capacity,
         "patients": patient_list,
         "staff": staff_list
     }
@@ -89,17 +101,32 @@ def hospital_to_dict(hospital):
 
 # dic -> obj 
 def dict_to_patient(patient_data):
-    patient = Patient(patient_data["name"] , patient_data["age"] , patient_data["medical_record"])
+
+    patient = Patient(
+        patient_data["patient_id"],
+        patient_data["name"],
+        patient_data["age"],
+        patient_data["department"]
+    )
+
+    record_data = patient_data["medical_record"]
+
+    patient.medical_record.diagnosis = record_data["diagnosis"]
+    patient.medical_record.medications = record_data["medications"]
+    patient.medical_record.test_results = record_data["test_results"]
+    patient.medical_record.appointments = record_data["appointments"]
+    patient.medical_record.medical_history = record_data["medical_history"]
+
     return patient
 
 
 def dict_to_staff(staff_data):
-    staff_member = Staff(staff_data["name"] , staff_data["age"] , staff_data["position"])
+    staff_member = Staff(staff_data["name"] , staff_data["age"] , staff_data["position"], staff_data["department"])
     return staff_member
 
 
 def dict_to_department(department_data):
-    department = Department(department_data["name"])
+    department = Department(department_data["name"], department_data["capacity"])
 
     for patient_data in department_data["patients"]:
         patient = dict_to_patient(patient_data)
@@ -127,7 +154,7 @@ def find_hospital(name , location):
 
     for hospital_data in hospitals:
         if ((hospital_data["name"].lower() == name.lower()) 
-            and (hospital_data["location"].lowe() == location.lower())):
+            and (hospital_data["location"].lower() == location.lower())):
 
             return dict_to_hospital(hospital_data)
 

@@ -1,3 +1,6 @@
+from patient import Patient
+from staff import Staff
+
 class Department:
     """Class representing a department in the hospital."""
     def __init__(self, name: str, capacity: int = 5):
@@ -5,6 +8,8 @@ class Department:
         self.capacity = capacity
         self.patients = []
         self.staff = []
+
+
     def add_patient(self, patient):
         """Add a patient to the department."""
         if len(self.patients) >= self.capacity:
@@ -13,6 +18,8 @@ class Department:
         self.patients.append(patient)
         print(f"Patient '{patient.name}' added to {self.name} department.")
         return True
+
+    
     def remove_patient(self, patient_name: str):
         """Remove a patient from the department."""
         for patient in self.patients:
@@ -22,13 +29,19 @@ class Department:
                 return True
         print(f"Patient '{patient_name}' not found in {self.name}.")
         return False
+
+    
     def add_staff(self, staff_member):
         """Add staff member to the department."""
         self.staff.append(staff_member)
         print(f"Staff '{staff_member.name}' added to {self.name} department.")
+
+
     def get_occupancy_rate(self) -> float:
         """Calculate occupancy percentage."""
         return (len(self.patients) / self.capacity) * 100
+
+
     def display_department_details(self):
         """Display department details and lists."""
         print(f"Department Name: {self.name}")
@@ -45,30 +58,3 @@ class Department:
         else:
             for patient in self.patients:
                 print(f"  - {patient.view_record()}")
-if __name__ == "__main__":
-    class Patient:
-        def __init__(self, name, medical_record):
-            self.name = name
-            self.medical_record = medical_record
-        def view_record(self):
-            return f"Patient: {self.name} | Record: {self.medical_record}"
-    class Staff:
-        def __init__(self, name, position):
-            self.name = name
-            self.position = position
-        def view_info(self):
-            return f"Staff: {self.name} | Position: {self.position}"
-    cardiology = Department("Cardiology", capacity=2)
-    doc1 = Staff("Dr. Ahmed", "Cardiologist")
-    nurse1 = Staff("Mona", "Nurse")
-    cardiology.add_staff(doc1)
-    cardiology.add_staff(nurse1)
-    p1 = Patient("Alice", "Hypertension")
-    p2 = Patient("Bob", "Arrhythmia")
-    p3 = Patient("Charlie", "Chest Pain")
-    cardiology.add_patient(p1)
-    cardiology.add_patient(p2)
-    cardiology.add_patient(p3)
-    cardiology.display_department_details()
-    cardiology.remove_patient("Alice")
-    cardiology.display_department_details()

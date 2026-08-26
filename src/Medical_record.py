@@ -7,9 +7,13 @@ class Medical_record():
         self.test_results=[]
         self.appointments=[]
         self.medical_history=[]
+
+
     def add_record(self,record_type:int,record:str):
-        '''Add a record to the appropriate list based on the record type(number for each record type).'''
-        '''args:
+        '''
+        Add a record to the appropriate list based on the record type(number for each record type).
+
+        Args:
             record_type: An integer representing the type of record (1 for diagnosis, 2 for medications, 3 for test results, 4 for appointments, 5 for medical history).
             record: The record to be added which is a string.
             returns:
@@ -25,12 +29,16 @@ class Medical_record():
             self.appointments.append(record)
         elif record_type==5:
             self.medical_history.append(record)
+
+
     def view_record(self):
-        '''Print all records in the medical record.'''
-        '''args:
+        '''
+        Print all records in the medical record.
+        Args:
             None
-            returns:
-            None'''
+        Returns:
+            None
+        '''
         print("Diagnosis:",self.diagnosis)
         print("Medications:",self.medications)
         print("Test Results:",self.test_results)
