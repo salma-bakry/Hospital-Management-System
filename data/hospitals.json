@@ -15,40 +15,5 @@
                 "staff": []
             }
         ]
-    },
-    {
-        "name": "ya rab ostor",
-        "location": "el gannah ",
-        "departments": [
-            {
-                "name": "surgery",
-                "capacity": 35,
-                "patients": [
-                    {
-                        "patient_id": 123,
-                        "name": "ahmed",
-                        "age": 45,
-                        "department": "surgery",
-                        "medical_record": {
-                            "diagnosis": [
-                                "cold"
-                            ],
-                            "medications": [],
-                            "test_results": [],
-                            "appointments": [],
-                            "medical_history": []
-                        }
-                    }
-                ],
-                "staff": [
-                    {
-                        "name": "amira",
-                        "age": 20,
-                        "position": "doctor",
-                        "department": "surgery"
-                    }
-                ]
-            }
-        ]
     }
 ]
